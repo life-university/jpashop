@@ -48,5 +48,4 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-
 }
