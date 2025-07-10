@@ -1,4 +1,4 @@
-package com.example.jpashop;
+package com.example.jpashop.repository;
 
 import com.example.jpashop.domain.Member;
 import org.assertj.core.api.Assertions;
@@ -17,13 +17,15 @@ class MemberRepositoryTest {
     @Transactional
     void testMember() {
         // given
-        Member member = new Member(null, "testUser");
+        Member member = Member.builder()
+            .name("testUser")
+            .build();
 
         // when
-        Long savedId = memberRepository.save(member);
+        memberRepository.save(member);
 
-        // then
-        Member findMember = memberRepository.findById(savedId);
+            // then
+        Member findMember = memberRepository.findById(member.getId());
 
         Assertions.assertThat(findMember).isEqualTo(member);
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
