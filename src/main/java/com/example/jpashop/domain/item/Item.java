@@ -1,6 +1,7 @@
 package com.example.jpashop.domain.item;
 
 import com.example.jpashop.domain.Category;
+import com.example.jpashop.exception.NotEnoughStockException;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -15,10 +16,12 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
+@SuperBuilder
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -36,4 +39,17 @@ public abstract class Item {
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
+    // buiness logic
+    // 재고 증가
+    public void addStock(int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStock(int quantity) {
+        int resultQuantity = this.stockQuantity - quantity;
+        if (resultQuantity < 0) {
+            throw new NotEnoughStockException("Need more quantity. Current stock: " + this.stockQuantity + ", require stock: " + quantity);
+        }
+        this.stockQuantity = resultQuantity;
+    }
 }
