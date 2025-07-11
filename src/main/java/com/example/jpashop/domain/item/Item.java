@@ -13,7 +13,6 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -24,7 +23,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@AllArgsConstructor
 public abstract class Item {
 
     @Id
