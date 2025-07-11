@@ -4,12 +4,14 @@ import com.example.jpashop.domain.Delivery;
 import com.example.jpashop.domain.Member;
 import com.example.jpashop.domain.Order;
 import com.example.jpashop.domain.OrderItem;
+import com.example.jpashop.domain.OrderSearch;
 import com.example.jpashop.domain.item.Item;
 import com.example.jpashop.repository.DeliveryRepository;
 import com.example.jpashop.repository.ItemRepository;
 import com.example.jpashop.repository.MemberRepository;
 import com.example.jpashop.repository.OrderItemRepository;
 import com.example.jpashop.repository.OrderRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,12 +42,14 @@ public class OrderService {
 
         // create order item
         OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
-        orderItemRepository.save(orderItem);
 
         // create order
         Order order = Order.createOrder(member, delivery, orderItem);
 
         orderRepository.save(order);
+
+        orderItem.setOrder(order);
+        orderItemRepository.save(orderItem);
 
         return order.getId();
     }
@@ -58,7 +62,7 @@ public class OrderService {
     }
 
     // 검색
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        //
-//    }
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAll();
+    }
 }
