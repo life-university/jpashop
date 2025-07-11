@@ -3,8 +3,8 @@ package com.example.jpashop.controller;
 import com.example.jpashop.controller.dto.BookForm;
 import com.example.jpashop.controller.dto.ItemList;
 import com.example.jpashop.domain.item.Book;
-import com.example.jpashop.domain.item.Item;
 import com.example.jpashop.service.ItemService;
+import com.example.jpashop.service.dto.ItemUpdateDTO;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -76,16 +76,21 @@ public class ItemController {
     @PostMapping("/items/{itemId}/edit")
     public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
 
-        Book book = Book.builder()
-            .id(itemId)
-            .name(form.name())
-            .price(form.price())
-            .stockQuantity(form.stockQuantity())
-            .author(form.author())
-            .isbn(form.isbn())
-            .build();
+//        Book book = Book.builder()
+//            .id(itemId)
+//            .name(form.name())
+//            .price(form.price())
+//            .stockQuantity(form.stockQuantity())
+//            .author(form.author())
+//            .isbn(form.isbn())
+//            .build();
 
-        itemService.saveItem(book);
+//        itemService.saveItem(book);
+//        itemService.updateItem(book);
+//        itemService.updateItem2(itemId, form.name(), form.price(), form.stockQuantity());
+
+        ItemUpdateDTO itemUpdateDTO = new ItemUpdateDTO(itemId, form.name(), form.price(), form.stockQuantity());
+        itemService.updateItem3(itemUpdateDTO);
 
         return "redirect:/items";
     }

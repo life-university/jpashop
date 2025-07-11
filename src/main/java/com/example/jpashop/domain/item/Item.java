@@ -50,4 +50,14 @@ public abstract class Item {
         }
         this.stockQuantity = resultQuantity;
     }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    public void editFromController(String name, int price, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
 }
