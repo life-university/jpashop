@@ -11,11 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Delivery {
@@ -27,6 +29,10 @@ public class Delivery {
 
     @OneToOne(mappedBy = "delivery")
     private Order order;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     @Embedded
     private Address address;
